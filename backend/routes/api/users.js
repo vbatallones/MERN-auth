@@ -6,7 +6,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const JWT_SECRET = process.env.JWT_SECRET;
-console.log(process.env);
 // Load User model
 // const User = require('../../models/User');
 const db = require('../../models');
@@ -47,6 +46,7 @@ router.post('/register', (req, res) => {
 	});
 });
 
+// POST api/users/login (Public)
 router.post('/login', (req, res) => {
 	const email = req.body.email;
 	const password = req.body.password;
@@ -81,4 +81,14 @@ router.post('/login', (req, res) => {
 	})
 });
 
+
+
+// GET api/users/current (this is private route)
+router.get('/current', passport.authenticate('jwt', {session: false}), (req,res) => {
+	res.json({
+		id: req.user.id,
+		name: req.user.name,
+		email: req.user.email
+	})
+})
 module.exports = router;
