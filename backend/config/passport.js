@@ -1,5 +1,3 @@
-const { config } = require('dotenv/types');
-
 require('dotenv').config();
 
 // A passport strategy for authenticating with a JSON web token
@@ -7,8 +5,8 @@ require('dotenv').config();
 const JwtStrategy = require('passport-jwt').Strategy;
 const ExtractJwt = require('passport-jwt').ExtractJwt;
 const mongoose = require('mongoose');
-const passport = require('passport');
 const User = mongoose.model('User');
+const db = require('../models')
 
 // options is an object literal containing options to control
 // how the token is extracted from the request or verified
